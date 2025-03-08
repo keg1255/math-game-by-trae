@@ -5,16 +5,48 @@ import audioManager from '../audio/AudioManager';
 
 const Game = () => {
     const [score, setScore] = useState(0);
+    const [highScore, setHighScore] = useState(0);
     const [numbers, setNumbers] = useState([]);
     const [selectedCells, setSelectedCells] = useState([]);
     const [successStreak, setSuccessStreak] = useState(0);
+    const [gameTime, setGameTime] = useState(0);
+    const [totalCorrectAnswers, setTotalCorrectAnswers] = useState(0);
+    const [averageScoreTime, setAverageScoreTime] = useState(0);
+    const [countdown, setCountdown] = useState(10);
+    const [lastScoreTime, setLastScoreTime] = useState(null);
+    const [isGameStarted, setIsGameStarted] = useState(false);
 
-    // 初始化音频资源
+    // 初始化音频资源和计时器
     useEffect(() => {
         audioManager.preloadAudios().catch(error => {
             console.error('音频资源加载失败:', error);
         });
-    }, []);
+
+        // 只有在游戏开始后才启动计时器
+        if (!isGameStarted) return;
+
+        // 每秒更新游戏时间和倒计时
+        const gameTimer = setInterval(() => {
+            setGameTime(prevTime => prevTime + 1);
+            
+            const now = Date.now();
+            const timeSinceLastScore = Math.floor((now - lastScoreTime) / 1000);
+            const newCountdown = 10 - timeSinceLastScore;
+            
+            if (newCountdown <= 0) {
+                setScore(prevScore => Math.max(0, prevScore - 1));
+                setSuccessStreak(0); // 超时扣分时重置连击
+                setLastScoreTime(now);
+                setCountdown(10);
+            } else {
+                setCountdown(newCountdown);
+            }
+        }, 1000);
+
+        return () => {
+            clearInterval(gameTimer);
+        };
+    }, [lastScoreTime, isGameStarted]);
 
     // 检查是否存在和为10的有效组合
     const hasValidCombination = (numbers) => {
@@ -67,6 +99,12 @@ const Game = () => {
 
     // 处理单元格点击
     const handleCellClick = (index) => {
+        // 第一次点击时启动游戏
+        if (!isGameStarted) {
+            setIsGameStarted(true);
+            setLastScoreTime(Date.now());
+        }
+
         audioManager.playNumber(numbers[index]);
         let newSelected = [...selectedCells];
         const cellIndex = newSelected.indexOf(index);
@@ -86,15 +124,26 @@ const Game = () => {
             const isSum = checkSum(newSelected);
             
             if (isLine && isSum) {
+                const newStreak = successStreak + 1;
+                const points = newStreak; // 连击次数即为得分
+                const newScore = score + points;
                 audioManager.playSuccessMessage(successStreak, score);
-                setScore(score + 1);
-                setSuccessStreak(successStreak + 1);
+                setScore(newScore);
+                setHighScore(prevHigh => Math.max(prevHigh, newScore));
+                setSuccessStreak(newStreak);
+                setTotalCorrectAnswers(prev => prev + 1);
+                setAverageScoreTime(gameTime / (totalCorrectAnswers + 1));
                 setNumbers(generateNumbers());
                 setSelectedCells([]);
+                setLastScoreTime(Date.now()); // 重置倒计时
+                setCountdown(5);
             } else {
                 audioManager.playFailureMessage(!isLine);
+                setScore(Math.max(0, score - 1)); // 答错扣1分
                 setSelectedCells([]);
                 setSuccessStreak(0);
+                setLastScoreTime(Date.now()); // 重置倒计时
+                setCountdown(5);
             }
         }
     };
@@ -112,7 +161,18 @@ const Game = () => {
 
     return (
         <div className="game-container">
-            <Score score={score} />
+            {!isGameStarted ? (
+                <div className="score-container">
+                    <h3>游戏规则：</h3>
+                    <ul className="game-rules-list">
+                        <li><span className="rule-highlight">基本规则：</span>选择横、竖或斜线上的三个数字，使它们的和等于10</li>
+                        <li><span className="rule-highlight">得分规则：</span>连续答对次数即为当次得分（如：连续答对3次得3分）</li>
+                        <li><span className="rule-highlight">扣分规则：</span>答错或超时（10秒）扣1分，同时重置连击</li>
+                    </ul>
+                </div>
+            ) : (
+                <Score score={score} highScore={highScore} gameTime={gameTime} averageScoreTime={averageScoreTime} countdown={countdown} />
+            )}
             <div className="grid">
                 {numbers.map((number, index) => (
                     <div
@@ -129,7 +189,6 @@ const Game = () => {
                     </div>
                 ))}
             </div>
-            <p className="instructions">找出横竖斜三个数相加等于10的数字</p>
         </div>
     );
 };
