@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Score from './Score';
 import '../styles.css';
 
@@ -68,7 +68,7 @@ const Game = () => {
     };
 
     // 生成3x3随机数字矩阵，确保至少有一组和为10的组合
-    const generateNumbers = () => {
+    const generateNumbers = useCallback(() => {
         let newNumbers;
         do {
             newNumbers = [];
@@ -77,12 +77,12 @@ const Game = () => {
             }
         } while (!hasValidCombination(newNumbers));
         return newNumbers;
-    };
+    }, []);
 
     // 初始化游戏
     useEffect(() => {
         setNumbers(generateNumbers());
-    }, []);
+    }, [generateNumbers]);
 
     // 检查选中的数字之和是否为10
     const checkSum = (selectedIndexes) => {
