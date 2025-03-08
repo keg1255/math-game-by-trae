@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Score from './Score';
 import '../styles.css';
+import audioManager from '../audio/AudioManager';
 
 const Game = () => {
     const [score, setScore] = useState(0);
@@ -38,20 +39,12 @@ const Game = () => {
         return message;
     };
 
-    // 初始化语音合成
-    const speak = (text, onEnd) => {
-        // 取消当前正在播放的语音
-        window.speechSynthesis.cancel();
-
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'zh-CN';
-        utterance.rate = 1.2; // 稍微提高语速
-        utterance.volume = 1.0;
-        if (onEnd) {
-            utterance.onend = onEnd;
-        }
-        window.speechSynthesis.speak(utterance);
-    };
+    // 初始化音频资源
+    useEffect(() => {
+        audioManager.preloadAudios().catch(error => {
+            console.error('音频资源加载失败:', error);
+        });
+    }, []);
 
     // 检查是否存在和为10的有效组合
     const hasValidCombination = (numbers) => {
@@ -104,7 +97,7 @@ const Game = () => {
 
     // 处理单元格点击
     const handleCellClick = (index) => {
-        speak(numbers[index].toString());
+        audioManager.playNumber(numbers[index]);
         let newSelected = [...selectedCells];
         const cellIndex = newSelected.indexOf(index);
 
@@ -123,24 +116,15 @@ const Game = () => {
             const isSum = checkSum(newSelected);
             
             if (isLine && isSum) {
-                const successMessage = getSuccessMessage();
-                speak(successMessage, () => {
-                    setScore(score + 1);
-                    setSuccessStreak(successStreak + 1);
-                    setNumbers(generateNumbers());
-                    setSelectedCells([]);
-                });
+                audioManager.playSuccessMessage(successStreak, score);
+                setScore(score + 1);
+                setSuccessStreak(successStreak + 1);
+                setNumbers(generateNumbers());
+                setSelectedCells([]);
             } else {
-                let failureReason = '';
-                if (!isLine) {
-                    failureReason = '请选择同一行、列或对角线上的数字';
-                } else if (!isSum) {
-                    failureReason = '这三个数字加起来不等于10';
-                }
-                speak(failureReason, () => {
-                    setSelectedCells([]);
-                    setSuccessStreak(0);
-                });
+                audioManager.playFailureMessage(!isLine);
+                setSelectedCells([]);
+                setSuccessStreak(0);
             }
         }
     };

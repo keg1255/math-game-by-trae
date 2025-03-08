@@ -1,0 +1,5 @@
+这个目录用于存放连击提示语的音频文件（.mp3格式）：
+1. consecutive.mp3 - "连续成功！"
+2. winning.mp3 - "连战连胜！"
+3. unstoppable.mp3 - "势如破竹！"
+4. invincible.mp3 - "无人能挡！"
