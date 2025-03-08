@@ -145,6 +145,17 @@ const Game = () => {
         }
     };
 
+    // 检测是否为移动设备
+    const isMobileDevice = () => {
+        return ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+    };
+
+    // 处理触摸事件
+    const handleTouchStart = (event, index) => {
+        event.preventDefault();
+        handleCellClick(index);
+    };
+
     return (
         <div className="game-container">
             <Score score={score} />
@@ -153,7 +164,12 @@ const Game = () => {
                     <div
                         key={index}
                         className={`cell ${selectedCells.includes(index) ? 'selected' : ''}`}
-                        onClick={() => handleCellClick(index)}
+                        {...(isMobileDevice() 
+                            ? { onTouchStart: (e) => handleTouchStart(e, index) }
+                            : { onClick: () => handleCellClick(index) }
+                        )}
+                        role="button"
+                        tabIndex={0}
                     >
                         {number}
                     </div>
