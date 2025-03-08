@@ -9,36 +9,6 @@ const Game = () => {
     const [selectedCells, setSelectedCells] = useState([]);
     const [successStreak, setSuccessStreak] = useState(0);
 
-    // 获取随机成功提示语
-    const getSuccessMessage = () => {
-        const messages = [
-            '太棒了！',
-            '你真厉害！',
-            '完美！',
-            '继续保持！',
-            '好极了！',
-            '你是最棒的！'
-        ];
-        const streakMessages = [
-            '连续成功！',
-            '连战连胜！',
-            '势如破竹！',
-            '无人能挡！'
-        ];
-
-        let message = messages[Math.floor(Math.random() * messages.length)];
-        
-        if (successStreak >= 2) {
-            message += streakMessages[Math.floor(Math.random() * streakMessages.length)];
-        }
-        
-        if (score > 0 && score % 5 === 0) {
-            message += `已经完成${score}分了！继续加油！`;
-        }
-        
-        return message;
-    };
-
     // 初始化音频资源
     useEffect(() => {
         audioManager.preloadAudios().catch(error => {
