@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/math-game-by-trae/static/css/main.e576045f.css",
-    "main.js": "/math-game-by-trae/static/js/main.daebd931.js",
+    "main.js": "/math-game-by-trae/static/js/main.c4aee759.js",
     "index.html": "/math-game-by-trae/index.html",
     "main.e576045f.css.map": "/math-game-by-trae/static/css/main.e576045f.css.map",
-    "main.daebd931.js.map": "/math-game-by-trae/static/js/main.daebd931.js.map"
+    "main.c4aee759.js.map": "/math-game-by-trae/static/js/main.c4aee759.js.map"
   },
   "entrypoints": [
     "static/css/main.e576045f.css",
-    "static/js/main.daebd931.js"
+    "static/js/main.c4aee759.js"
   ]
 }

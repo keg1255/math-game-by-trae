@@ -1,0 +1,7 @@
+这个目录用于存放成功提示语的音频文件（.mp3格式）：
+1. great.mp3 - "太棒了！"
+2. excellent.mp3 - "你真厉害！"
+3. perfect.mp3 - "完美！"
+4. keepgoing.mp3 - "继续保持！"
+5. wonderful.mp3 - "好极了！"
+6. youarethebest.mp3 - "你是最棒的！"
