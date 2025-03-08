@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/math-game-by-trae/static/css/main.70eb0d3c.css",
+    "main.js": "/math-game-by-trae/static/js/main.5c7b1cf8.js",
+    "index.html": "/math-game-by-trae/index.html",
+    "main.70eb0d3c.css.map": "/math-game-by-trae/static/css/main.70eb0d3c.css.map",
+    "main.5c7b1cf8.js.map": "/math-game-by-trae/static/js/main.5c7b1cf8.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.70eb0d3c.css",
+    "static/js/main.5c7b1cf8.js"
+  ]
+}
