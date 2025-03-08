@@ -1,70 +1,63 @@
-# Getting Started with Create React App
+# Math Game by Trae
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+一个有趣的数学小游戏，帮助玩家提高心算能力。
 
-## Available Scripts
+## 项目介绍
 
-In the project directory, you can run:
+这是一个基于React开发的数学游戏应用，完全由Trae IDE的AI Builder自动生成和构建。玩家需要在限定时间内完成一系列数学计算题，通过练习来提高心算速度和准确性。
 
-### `npm start`
+本项目展示了使用AI辅助开发工具的强大能力，从项目架构设计到具体功能实现，全程由Trae IDE的AI Builder智能完成，体现了现代智能化开发工具的效率和便捷性。
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 游戏规则
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. 游戏开始后，系统会随机生成数学计算题
+2. 玩家需要在规定时间内输入正确答案
+3. 答对得分，答错或超时不得分
+4. 游戏结束后显示最终得分
 
-### `npm test`
+## 技术实现
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- 前端框架：React
+- 状态管理：React Hooks
+- 样式处理：CSS
+- 构建工具：Create React App
 
-### `npm run build`
+## 本地开发
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 环境准备
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+确保你的电脑已安装以下软件：
+- Node.js (推荐 14.0.0 及以上版本)
+- npm (Node.js 包管理器)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 安装依赖
 
-### `npm run eject`
+```bash
+npm install
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 启动开发服务器
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+npm start
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+运行上述命令后，在浏览器中打开 [http://localhost:3000](http://localhost:3000) 即可查看应用。
+修改代码后，页面会自动刷新。
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### 构建生产版本
 
-## Learn More
+```bash
+npm run build
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+执行构建命令后，会在 `build` 文件夹中生成用于生产环境的文件。
+这些文件经过了优化，可直接用于部署。
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 贡献指南
 
-### Code Splitting
+欢迎提交 Issue 和 Pull Request 来帮助改进这个项目。
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 许可证
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+本项目采用 MIT 许可证。
